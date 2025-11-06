@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.ZonedDateTime;
 
 @Entity
+@Table(name = "Project_Members")
 public class ProjectMembers {
     @Id
     @Column(name = "project_member_id")

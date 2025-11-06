@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
+@Table(name = "Tasks")
 public class Tasks {
     @Id
     @Column(name = "task_id")

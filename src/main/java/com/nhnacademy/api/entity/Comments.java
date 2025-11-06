@@ -4,11 +4,13 @@ package com.nhnacademy.api.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.ZonedDateTime;
 
 @Entity
+@Table(name = "Comments")
 public class Comments {
     @Id
     @Column(name = "comment_id")

@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import java.time.ZonedDateTime;
 
 @Entity
+@Table(name = "MileStone")
 public class MileStone {
     @Id
     @Column(name = "milestone_id")

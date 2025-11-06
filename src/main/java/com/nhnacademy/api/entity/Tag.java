@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Entity
+@Table(name = "Tags")
 public class Tag {
     @Id
     @Column(name = "tag_id")
