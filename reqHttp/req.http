@@ -1,0 +1,13 @@
+### Post Project
+POST http://localhost:8082/projects
+Content-Type: application/json
+
+{
+  "userId": 202030,
+  "name": "홍길동",
+  "status": "ACTIVE"
+}
+
+### Get Project
+GET http://localhost:8082/projects/1
+Accept: application/json

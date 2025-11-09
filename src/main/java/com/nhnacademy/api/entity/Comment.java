@@ -1,5 +1,6 @@
 package com.nhnacademy.api.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,31 +13,36 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "mile_stone")
-public class MileStone {
+@Table(name = "comment")
+public class Comment {
     @Id
-    @Column(name = "milestone_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private long id;
 
 //    @Column(name = "task_id")
 //    private long taskId;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
-    @Length(min = 1, max = 45)
-    @Column(name = "milestone_name")
-    private String name;
+//    @Column(name = "project_member_id")
+//    private long projectMemberId;
+    @ManyToOne
+    @JoinColumn(name = "project_member_id")
+    private ProjectMember projectMember;
+
+    @Length(min = 1, max = 500)
+    private String content;
 
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private ZonedDateTime updateAt;
+    @Column(name = "upated_at")
+    private ZonedDateTime updatedAt;
 
-    public MileStone(String name){
-        this.name = name;
+    public Comment(String content){
+        this.content = content;
         this.createdAt = ZonedDateTime.now();
     }
 }
