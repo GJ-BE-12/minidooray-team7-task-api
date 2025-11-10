@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -39,5 +41,13 @@ public class ProjectServiceImpl implements ProjectService {
 
         Project project = projectRepository.findProjectById(id);
         return new ProjectDTO(project.getId(),project.getName(),project.getStatus(), project.getUserId(), project.getCreated_at());
+    }
+
+    @Override
+    public List<ProjectDTO> getProjects() {
+        List<Project> projects = projectRepository.findAll();
+        return projects.stream()
+                .map(p -> new ProjectDTO(p.getId(), p.getName(), p.getStatus(), p.getUserId(), p.getCreated_at()))
+                .toList();
     }
 }
