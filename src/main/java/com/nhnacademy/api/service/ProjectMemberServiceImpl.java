@@ -33,8 +33,10 @@ public class ProjectMemberServiceImpl implements ProjectMemberService{
     @Override
     @Transactional
     public void addProjectMember(long projectId, String userId) {
+        if(!exist(projectId))
+            throw new RuntimeException("존재하지 않는 프로젝트 입니다.");
         if(exist(projectId, userId))
-            throw new RuntimeException("이미 존재하는 프로젝트 멤버");
+            throw new RuntimeException("이미 존재하는 프로젝트 멤버입니다.");
 
         ProjectMember projectMember = new ProjectMember(userId);
         Project project = projectRepository.findProjectById(projectId);
@@ -52,7 +54,8 @@ public class ProjectMemberServiceImpl implements ProjectMemberService{
         List<ProjectMember> projectMembers = projectMemberRepository.findAllByProject_Id(projectId);
         log.info("{}",projectMembers);
         return projectMembers.stream()
-                .map(pm -> new ProjectMemberDTO(pm.getId(), pm.getUserId(), pm.getProject().getId(), pm.getJoinAt()))
+                .map(pm -> new ProjectMemberDTO(pm.getId(), pm.getUserId(),
+                        pm.getProject().getId(), pm.getJoinAt()))
                 .toList();
     }
 
@@ -71,6 +74,11 @@ public class ProjectMemberServiceImpl implements ProjectMemberService{
         if(!exist(projectId))
             throw new RuntimeException("존재하지 않은 프로젝트멤버입니다.");
 
+        Project project = projectRepository.findProjectById(projectId);
+        List<ProjectMember> projectMembers = project.getProjectMembers();
+
+        projectMembers.removeIf(m
+                -> m.getProject().getId() == projectId && m.getUserId().equals(userId));
         projectMemberRepository.deleteProjectMemberByProject_IdAndUserId(projectId, userId);
     }
 }
