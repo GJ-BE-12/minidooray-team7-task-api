@@ -2,6 +2,7 @@ package com.nhnacademy.api.controller;
 
 import com.nhnacademy.api.dto.TaskDTO;
 import com.nhnacademy.api.dto.TasksDTO;
+import com.nhnacademy.api.request.TaskAdd;
 import com.nhnacademy.api.request.TaskUpdate;
 import com.nhnacademy.api.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,13 @@ public class TaskController {
                            @PathVariable("taskId") long taskId,
                            @RequestParam("projectMemberId") long projectMemberId){
         return taskService.getTask(projectId, taskId, projectMemberId);
+    }
+
+    @PostMapping
+    public ResponseEntity addTask(@PathVariable("projectId") long projectId,
+                                  @RequestBody TaskAdd taskAdd){
+        taskService.addTask(taskAdd);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("{taskId}")
