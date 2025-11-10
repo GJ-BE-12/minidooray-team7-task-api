@@ -74,6 +74,6 @@ public class Task {
 
     public MileStoneDTO createMileStoneDTO(){
         return new MileStoneDTO(mileStone.getId(), this.id, mileStone.getName(),
-                mileStone.getCreatedAt(), mileStone.getUpdateAt());
+                mileStone.getCreatedAt(), mileStone.getUpdatedAt());
     }
 }

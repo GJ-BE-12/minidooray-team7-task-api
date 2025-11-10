@@ -58,7 +58,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectDTO> getProjects(String userId) {
-        List<Project> projects = projectRepository.findAllByUserId(userId);
+        List<ProjectMember> projectMembers = projectMemberRepository.findAllByUserId(userId);
+        List<Project> projects = projectMembers.stream().map(ProjectMember::getProject).toList();
         return projects.stream()
                 .map(p -> new ProjectDTO(p.getId(), p.getName(), p.getStatus(), p.getUserId(), p.getCreated_at()))
                 .toList();

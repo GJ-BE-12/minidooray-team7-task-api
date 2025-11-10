@@ -82,7 +82,7 @@ public class MileStoneServiceImpl implements MileStoneService{
 
         MileStone mileStone = mileStoneRepository.findMileStoneByTask_Id(taskId);
         return new MileStoneDTO(mileStone.getId(), mileStone.getTask().getId(), mileStone.getName(),
-                mileStone.getCreatedAt(), mileStone.getUpdateAt());
+                mileStone.getCreatedAt(), mileStone.getUpdatedAt());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class MileStoneServiceImpl implements MileStoneService{
 
         MileStone mileStone = mileStoneRepository.findMileStoneById(milestoneId);
         mileStone.setName(mileStoneUpdate.getName());
-        mileStone.setUpdateAt(ZonedDateTime.now());
+        mileStone.setUpdatedAt(ZonedDateTime.now());
     }
 
     @Override

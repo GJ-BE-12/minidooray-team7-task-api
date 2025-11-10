@@ -33,7 +33,7 @@ public class MileStone {
     private ZonedDateTime createdAt;
 
     @Column(name = "updated_at")
-    private ZonedDateTime updateAt;
+    private ZonedDateTime updatedAt;
 
     public MileStone(String name){
         this.name = name;
