@@ -28,7 +28,7 @@ public class TagServiceImpl implements TagService{
     public void exist(long projectId, long taskId) {
         if(!projectRepository.existsProjectById(projectId))
             throw new RuntimeException("존재하지 않는 project입니다.");
-        if(taskRepository.existsById(taskId))
+        if(!taskRepository.existsById(taskId))
             throw new RuntimeException("존재하지 않는 task입니다.");
     }
 
@@ -48,7 +48,7 @@ public class TagServiceImpl implements TagService{
 
     @Override
     public void isPermission(long projectId, long projectMemberId) {
-        if(projectMemberRepository.existsProjectMemberByIdAndProject_Id(projectMemberId,projectId))
+        if(!projectMemberRepository.existsProjectMemberByIdAndProject_Id(projectMemberId,projectId))
             throw new RuntimeException("접근권한이 없습니다.");
     }
 

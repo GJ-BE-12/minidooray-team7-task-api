@@ -29,27 +29,27 @@ public class CommentServiceImpl implements CommentService{
     public void exist(long projectId, long taskId) {
         if(!projectRepository.existsProjectById(projectId))
             throw new RuntimeException("존재하지 않는 project입니다.");
-        if(taskRepository.existsById(taskId))
+        if(!taskRepository.existsById(taskId))
             throw new RuntimeException("존재하지 않는 task입니다.");
     }
 
     @Override
     public void exist(long projectId, long taskId, long commentId) {
         exist(projectId, taskId);
-        if(commentRepository.existsCommentById(commentId))
+        if(!commentRepository.existsCommentById(commentId))
             throw new RuntimeException("존재하지 않는 comment입니다.");
     }
 
     @Override
     public void isPermission(long projectId, long projectMemberId) {
-        if(projectMemberRepository.existsProjectMemberByIdAndProject_Id(projectMemberId,projectId))
+        if(!projectMemberRepository.existsProjectMemberByIdAndProject_Id(projectMemberId,projectId))
             throw new RuntimeException("접근권한이 없습니다.");
     }
 
     @Override
     public void isPermission(long projectId, long taskId, long commentId, long projectMemberId) {
         isPermission(projectId, taskId);
-        if(commentRepository.existsCommentByIdAndProjectMember_Id(commentId, projectMemberId))
+        if(!commentRepository.existsCommentByIdAndProjectMember_Id(commentId, projectMemberId))
             throw new RuntimeException("권한이 없는 접근입니다.");
     }
 

@@ -42,14 +42,14 @@ public class MileStoneServiceImpl implements MileStoneService{
     @Override
     public void exist3(long projectId, long taskId) {
         exist(projectId, taskId);
-        if(mileStoneRepository.existsMileStonesByTask_Id(taskId))
+        if(!mileStoneRepository.existsMileStonesByTask_Id(taskId))
             throw new RuntimeException("존재하지 않는 milestone입니다.");
     }
 
     @Override
     public void exist3(long projectId, long taskId, long milestoneId) {
         exist(projectId, taskId);
-        if(mileStoneRepository.existsMileStonesById(milestoneId))
+        if(!mileStoneRepository.existsMileStonesById(milestoneId))
             throw new RuntimeException("존재하지 않는 milestone입니다.");
     }
 
