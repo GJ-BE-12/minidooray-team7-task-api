@@ -15,4 +15,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
     Tag findTagById(long id);
 
     void deleteTagById(long id);
+
+    boolean existsTagByIdAndTask_Id(long id, long taskId);
 }

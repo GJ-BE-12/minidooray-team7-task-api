@@ -3,9 +3,12 @@ package com.nhnacademy.api.service;
 import com.nhnacademy.api.dto.TagDTO;
 import com.nhnacademy.api.entity.Tag;
 import com.nhnacademy.api.entity.Task;
+import com.nhnacademy.api.repository.ProjectMemberRepository;
+import com.nhnacademy.api.repository.ProjectRepository;
 import com.nhnacademy.api.repository.TagRepository;
 import com.nhnacademy.api.repository.TaskRepository;
 import com.nhnacademy.api.request.TagAdd;
+import com.nhnacademy.api.request.TagUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,24 +21,43 @@ public class TagServiceImpl implements TagService{
 
     private final TagRepository tagRepository;
     private final TaskRepository taskRepository;
+    private final ProjectMemberRepository projectMemberRepository;
+    private final ProjectRepository projectRepository;
 
     @Override
-    public boolean exist(long taskId) {
-        return taskRepository.existsTaskById(taskId);
+    public void exist(long projectId, long taskId) {
+        if(!projectRepository.existsProjectById(projectId))
+            throw new RuntimeException("존재하지 않는 project입니다.");
+        if(taskRepository.existsById(taskId))
+            throw new RuntimeException("존재하지 않는 task입니다.");
     }
 
     @Override
-    public boolean exist(long taskId, String name) {
-        return tagRepository.existsTagByTask_IdAndName(taskId, name);
+    public void exist(long projectId, long taskId, String name) {
+        exist(projectId, taskId);
+        if(tagRepository.existsTagByTask_IdAndName(taskId, name))
+            throw new RuntimeException("중복된 tag입니다.");
+    }
+
+    @Override
+    public void exist(long projectId, long taskId, long tagId) {
+        exist(projectId, taskId);
+        if(tagRepository.existsTagByIdAndTask_Id(tagId, taskId))
+            throw new RuntimeException("중복된 tag입니다.");
+    }
+
+    @Override
+    public void isPermission(long projectId, long projectMemberId) {
+        if(projectMemberRepository.existsProjectMemberByIdAndProject_Id(projectMemberId,projectId))
+            throw new RuntimeException("접근권한이 없습니다.");
     }
 
     @Override
     @Transactional
-    public void addTag(TagAdd tagAdd) {
-        if(!exist(tagAdd.getTaskId()))
-            throw new RuntimeException("존재하지 않는 task입니다.");
-        if(exist(tagAdd.getTaskId(), tagAdd.getName()))
-            throw new RuntimeException("이미 존재하는 태그입니다.");
+    public void addTag(long projectId, long taskId, TagAdd tagAdd) {
+        exist(projectId, taskId, tagAdd.getName());
+
+        isPermission(projectId, tagAdd.getProjectMemberId());
 
         Tag newTag = new Tag(tagAdd.getName());
         Task task = taskRepository.getReferenceById(tagAdd.getTaskId());
@@ -47,9 +69,8 @@ public class TagServiceImpl implements TagService{
 
     @Override
     @Transactional
-    public List<TagDTO> getTags(long taskId) {
-        if(!exist(taskId))
-            throw new RuntimeException("존재하지 않는 task입니다.");
+    public List<TagDTO> getTags(long projectId, long taskId) {
+        exist(projectId, taskId);
 
         List<Tag> tags = tagRepository.findAllByTask_Id(taskId);
 
@@ -60,19 +81,21 @@ public class TagServiceImpl implements TagService{
 
     @Override
     @Transactional
-    public void updateTag(long tagId, String name) {
-        if(tagRepository.existsTagById(tagId))
-            throw new RuntimeException("존재하지 않는 tag입니다.");
+    public void updateTag(long projectId, long taskId, long tagId, TagUpdate tagUpdate) {
+        exist(projectId, taskId, tagId);
+
+        isPermission(projectId, tagUpdate.getProjectMemberId());
 
         Tag tag = tagRepository.findTagById(tagId);
-        tag.setName(name);
+        tag.setName(tagUpdate.getName());
     }
 
     @Override
     @Transactional
-    public void deleteTag(long tagId, long taskId) {
-        if(tagRepository.existsTagById(tagId))
-            throw new RuntimeException("존재하지 않는 tag입니다.");
+    public void deleteTag(long projectId, long taskId, long tagId, long projectMemberId) {
+        exist(projectId, taskId, tagId);
+
+        isPermission(projectId, projectMemberId);
 
         Task task = taskRepository.getReferenceById(taskId);
         List<Tag> tags = task.getTags();

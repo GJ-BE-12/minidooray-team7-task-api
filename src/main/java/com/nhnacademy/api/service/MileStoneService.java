@@ -2,12 +2,16 @@ package com.nhnacademy.api.service;
 
 import com.nhnacademy.api.dto.MileStoneDTO;
 import com.nhnacademy.api.request.MileStoneAdd;
+import com.nhnacademy.api.request.MileStoneUpdate;
 
 public interface MileStoneService {
-    boolean exist(long taskId);
-    boolean exist2(long milestoneId);
-    void addMileStone(MileStoneAdd mileStoneAdd);
-    MileStoneDTO getMileStone(long milestoneId);
-    void updateMileStone(long milestoneId, String name);
-    void deleteMileStone(long milestoneId, long taskId);
+    void exist(long projectId, long taskId);
+    void exist2(long projectId, long taskId);
+    void exist3(long projectId, long taskId);
+    void exist3(long projectId, long taskId, long milestoneId);
+    void isPermission(long projectId, long projectMemberId);
+    void addMileStone(long projectId, long taskId, MileStoneAdd mileStoneAdd);
+    MileStoneDTO getMileStone(long projectId, long taskId);
+    void updateMileStone(long projectId, long taskId, long milestoneId, MileStoneUpdate mileStoneUpdate);
+    void deleteMileStone(long projectId, long taskId, long milestoneId, long projectMemberId);
 }

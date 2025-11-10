@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class CommentAdd {
+public class TaskUpdate {
     private long projectMemberId;
-    private String content;
+    private String title;
+    private String body;
 }

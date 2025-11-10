@@ -8,4 +8,5 @@ import lombok.Getter;
 public class TagAdd {
     private long taskId;
     private String name;
+    private long projectMemberId;
 }

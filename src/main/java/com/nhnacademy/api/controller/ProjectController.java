@@ -21,8 +21,8 @@ public class ProjectController {
         return ResponseEntity.ok()/*.body()*/.build();
     }
 
-    @GetMapping("{id}")
-    public ProjectDTO getProject(@PathVariable("id") long id){
+    @GetMapping("{projectId}")
+    public ProjectDTO getProject(@PathVariable("projectId") long id){
         return projectService.getProject(id);
     }
 }

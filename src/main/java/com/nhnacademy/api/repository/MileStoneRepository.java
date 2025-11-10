@@ -11,4 +11,8 @@ public interface MileStoneRepository extends JpaRepository<MileStone, Long> {
     MileStone findMileStoneById(long id);
 
     void deleteMileStoneById(long id);
+
+    boolean existsMileStonesByTask_Id(long taskId);
+
+    MileStone findMileStoneByTask_Id(long taskId);
 }

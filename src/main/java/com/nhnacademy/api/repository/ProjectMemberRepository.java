@@ -16,4 +16,6 @@ public interface ProjectMemberRepository extends JpaRepository<ProjectMember, Lo
     ProjectMember findProjectMemberById(long id);
 
     void deleteProjectMemberByProject_IdAndUserId(long projectId, String userId);
+
+    boolean existsProjectMemberByIdAndProject_Id(long id, long projectId);
 }

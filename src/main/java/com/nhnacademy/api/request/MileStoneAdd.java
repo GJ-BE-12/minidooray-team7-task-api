@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class MileStoneAdd {
-    private long taskId;
+    private long projectMemberId;
     private String name;
 }

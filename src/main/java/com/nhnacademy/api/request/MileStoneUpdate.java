@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class CommentAdd {
-    private long projectMemberId;
-    private String content;
+public class MileStoneUpdate {
+    long projectMemberId;
+    String name;
 }
