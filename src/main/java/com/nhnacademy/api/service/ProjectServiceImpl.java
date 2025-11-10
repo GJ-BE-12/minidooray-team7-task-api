@@ -1,11 +1,13 @@
 package com.nhnacademy.api.service;
 
+import com.nhnacademy.api.dto.ProjectDTO;
 import com.nhnacademy.api.entity.Project;
 import com.nhnacademy.api.repository.ProjectRepository;
 import com.nhnacademy.api.request.ProjectAdd;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional
     public void addProject(ProjectAdd projectAdd) {
         Project newProject = new Project(projectAdd.getName(), projectAdd.getStatus(), projectAdd.getUserId());
 
@@ -29,10 +32,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project getProject(long id) {
+    @Transactional
+    public ProjectDTO getProject(long id) {
         if(!exist(id))
             throw new RuntimeException("존재하지 않는 프로젝트 ID입니다.");
 
-        return projectRepository.findProjectById(id);
+        Project project = projectRepository.findProjectById(id);
+        return new ProjectDTO(project.getId(),project.getName(),project.getStatus(), project.getUserId(), project.getCreated_at());
     }
 }

@@ -1,5 +1,6 @@
 package com.nhnacademy.api.controller;
 
+import com.nhnacademy.api.dto.ProjectDTO;
 import com.nhnacademy.api.entity.Project;
 import com.nhnacademy.api.request.ProjectAdd;
 import com.nhnacademy.api.service.ProjectService;
@@ -21,7 +22,7 @@ public class ProjectController {
     }
 
     @GetMapping("{id}")
-    public Project getProject(@PathVariable("id") long id){
+    public ProjectDTO getProject(@PathVariable("id") long id){
         return projectService.getProject(id);
     }
 }

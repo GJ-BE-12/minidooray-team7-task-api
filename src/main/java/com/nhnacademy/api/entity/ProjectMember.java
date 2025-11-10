@@ -20,7 +20,7 @@ public class ProjectMember {
     private long id;
 
     @Column(name = "user_id")
-    private long userId;
+    private String userId;
 
 //    @Column(name = "project_id")
 //    private long projectId;
@@ -31,7 +31,7 @@ public class ProjectMember {
     @Column(name = "join_at")
     private ZonedDateTime joinAt;
 
-    public ProjectMember(long userId){
+    public ProjectMember(String userId){
         this.userId = userId;
         this.joinAt = ZonedDateTime.now();
     }

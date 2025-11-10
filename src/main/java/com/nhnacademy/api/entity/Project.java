@@ -24,14 +24,14 @@ public class Project {
     private String name;
 
     private Status status;
-    private long userId;
+    private String userId;
     private ZonedDateTime created_at;
 
-    public Project(String name, long userId){
+    public Project(String name, String userId){
         this(name, Status.ACTIVE, userId);
     }
 
-    public Project(String name, Status status, long userId){
+    public Project(String name, Status status, String userId){
         this.name = name;
         this.status = status;
         this.userId = userId;

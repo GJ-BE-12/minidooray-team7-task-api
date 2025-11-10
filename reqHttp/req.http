@@ -11,3 +11,15 @@ Content-Type: application/json
 ### Get Project
 GET http://localhost:8082/projects/1
 Accept: application/json
+
+### Post ProjectMember
+POST http://localhost:8082/projects/1/members
+Content-Type: application/json
+
+{
+  "userId": 202040
+}
+
+### Get ProjectMember
+GET http://localhost:8082/projects/1/members
+Accept: application/json
