@@ -12,7 +12,7 @@ public interface CommentService {
     void isPermission(long projectId, long projectMemberId);
     void isPermission(long projectId, long taskId, long commentId, long projectMemberId);
     void addComment(long projectId,long taskId, CommentAdd commentAdd);
-    List<CommentDTO> getComments(long projectId,long taskId);
+    List<CommentDTO> getComments(long projectId,long taskId, long projectMemberId);
     void updateComment(long projectId,long taskId, long commentId, CommentUpdate commentUpdate);
     void deleteComment(long projectId,long taskId, long commentId, long projectMemberId);
 }

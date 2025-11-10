@@ -11,7 +11,7 @@ public interface MileStoneService {
     void exist3(long projectId, long taskId, long milestoneId);
     void isPermission(long projectId, long projectMemberId);
     void addMileStone(long projectId, long taskId, MileStoneAdd mileStoneAdd);
-    MileStoneDTO getMileStone(long projectId, long taskId);
+    MileStoneDTO getMileStone(long projectId, long taskId, long projectMemberId);
     void updateMileStone(long projectId, long taskId, long milestoneId, MileStoneUpdate mileStoneUpdate);
     void deleteMileStone(long projectId, long taskId, long milestoneId, long projectMemberId);
 }

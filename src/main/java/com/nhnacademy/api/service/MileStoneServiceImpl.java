@@ -75,8 +75,10 @@ public class MileStoneServiceImpl implements MileStoneService{
 
     @Override
     @Transactional
-    public MileStoneDTO getMileStone(long projectId, long taskId) {
+    public MileStoneDTO getMileStone(long projectId, long taskId, long projectMemberId) {
         exist2(projectId, taskId);
+
+        isPermission(projectId, projectMemberId);
 
         MileStone mileStone = mileStoneRepository.findMileStoneByTask_Id(taskId);
         return new MileStoneDTO(mileStone.getId(), mileStone.getTask().getId(), mileStone.getName(),

@@ -69,8 +69,10 @@ public class TagServiceImpl implements TagService{
 
     @Override
     @Transactional
-    public List<TagDTO> getTags(long projectId, long taskId) {
+    public List<TagDTO> getTags(long projectId, long taskId, long projectMemberId) {
         exist(projectId, taskId);
+
+        isPermission(projectId, projectMemberId);
 
         List<Tag> tags = tagRepository.findAllByTask_Id(taskId);
 

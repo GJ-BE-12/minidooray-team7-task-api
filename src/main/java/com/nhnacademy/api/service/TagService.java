@@ -12,7 +12,7 @@ public interface TagService {
     void exist(long projectId, long taskId, long tagId);
     void isPermission(long projectId, long projectMemberId);
     void addTag(long projectId, long taskId, TagAdd tagAdd);
-    List<TagDTO> getTags(long projectId, long taskId);
+    List<TagDTO> getTags(long projectId, long taskId, long projectMemberId);
     void updateTag(long projectId, long taskId, long tagId, TagUpdate tagUpdate);
     void deleteTag(long projectId, long taskId, long tagId, long projectMemberId);
 }

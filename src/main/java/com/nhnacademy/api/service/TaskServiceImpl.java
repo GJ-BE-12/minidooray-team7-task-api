@@ -60,8 +60,10 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public TaskDTO getTask(long projectId, long taskId) {
+    public TaskDTO getTask(long projectId, long taskId, long projectMemberId) {
         exist(projectId, taskId);
+
+        isPermission(projectId, projectMemberId);
 
         Task task = taskRepository.findTaskById(taskId);
         return new TaskDTO(task.getId(), task.getProject().getId(), task.getProjectMember().getId(),

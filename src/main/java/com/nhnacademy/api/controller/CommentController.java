@@ -18,8 +18,9 @@ public class CommentController {
 
     @GetMapping
     public List<CommentDTO> getComments(@PathVariable("projectId") long projectId,
-                                        @PathVariable("taskId") long taskId){
-        return commentService.getComments(projectId, taskId);
+                                        @PathVariable("taskId") long taskId,
+                                        @RequestParam("projectMemberId") long projectMemberId){
+        return commentService.getComments(projectId, taskId, projectMemberId);
     }
 
     @PostMapping

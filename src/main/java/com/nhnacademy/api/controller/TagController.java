@@ -18,8 +18,9 @@ public class TagController {
 
     @GetMapping
     public List<TagDTO> getTags(@PathVariable("projectId") long projectId,
-                                @PathVariable("taskId") long taskId){
-        return tagService.getTags(projectId, taskId);
+                                @PathVariable("taskId") long taskId,
+                                @RequestParam("projectMemberId") long projectMemberId){
+        return tagService.getTags(projectId, taskId, projectMemberId);
     }
 
     @PostMapping

@@ -12,7 +12,7 @@ public interface TaskService {
     void isPermission(long projectId, long projectMemberId);
     void isPermission(long projectId, long taskId, long projectMemberId);
     void addTask(TaskAdd taskAdd);
-    TaskDTO getTask(long projectId, long taskId);
+    TaskDTO getTask(long projectId, long taskId, long projectMemberId);
     List<TasksDTO> getTasks(long projectId);
     void updateTask(long projectId, long taskId, long projectMemberId, String title, String body);
     void deleteTask(long projectId, long taskId, long projectMemberId);

@@ -24,8 +24,9 @@ public class TaskController {
 
     @GetMapping("/{taskId}")
     public TaskDTO getTask(@PathVariable("projectId") long projectId,
-                           @PathVariable("taskId") long taskId){
-        return taskService.getTask(projectId, taskId);
+                           @PathVariable("taskId") long taskId,
+                           @RequestParam("projectMemberId") long projectMemberId){
+        return taskService.getTask(projectId, taskId, projectMemberId);
     }
 
     @PutMapping("{taskId}")

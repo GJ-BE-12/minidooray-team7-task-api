@@ -72,8 +72,10 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<CommentDTO> getComments(long projectId, long taskId) {
+    public List<CommentDTO> getComments(long projectId, long taskId, long projectMemberId) {
         exist(projectId, taskId);
+
+        isPermission(projectId, projectMemberId);
 
         List<Comment> comments = commentRepository.findAllByTask_Id(taskId);
         return comments.stream()

@@ -16,8 +16,9 @@ public class MileStoneController {
 
     @GetMapping
     public MileStoneDTO getMileStone(@PathVariable("projectId") long projectId,
-                                           @PathVariable("taskId") long taskId){
-        return mileStoneService.getMileStone(projectId, taskId);
+                                     @PathVariable("taskId") long taskId,
+                                     @RequestParam("projectMemberId") long projectMemberId){
+        return mileStoneService.getMileStone(projectId, taskId, projectMemberId);
     }
 
     @PostMapping

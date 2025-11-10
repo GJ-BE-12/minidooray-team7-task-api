@@ -1,7 +1,6 @@
 package com.nhnacademy.api.controller;
 
 import com.nhnacademy.api.dto.ProjectDTO;
-import com.nhnacademy.api.entity.Project;
 import com.nhnacademy.api.request.ProjectAdd;
 import com.nhnacademy.api.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -23,13 +22,14 @@ public class ProjectController {
         return ResponseEntity.ok()/*.body()*/.build();
     }
 
-    @GetMapping("{projectId}")
-    public ProjectDTO getProject(@PathVariable("projectId") long id){
-        return projectService.getProject(id);
+    @GetMapping("/{projectId}")
+    public ProjectDTO getProject(@PathVariable("projectId") long id,
+                                 @RequestParam("userId") String userId){
+        return projectService.getProject(id, userId);
     }
 
     @GetMapping
-    public List<ProjectDTO> getProjects(){
-        return projectService.getProjects();
+    public List<ProjectDTO> getProjects(@RequestParam("userId") String userId){
+        return projectService.getProjects(userId);
     }
 }
