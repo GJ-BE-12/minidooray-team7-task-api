@@ -30,7 +30,8 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public void exist(long projectId, long taskId) {
-        exist(projectId);
+        if(!projectRepository.existsProjectById(projectId))
+            throw new RuntimeException("존재하지 않는 project입니다.");
         if(!taskRepository.existsTaskById(taskId))
             throw new RuntimeException("존재하지 않는 task입니다.");
     }
